@@ -12,36 +12,17 @@ export default function Story() {
       const sections = gsap.utils.toArray('.story-section');
       
       sections.forEach((section) => {
-        const texts = section.querySelectorAll('.animate-text');
-        const images = section.querySelectorAll('.animate-image');
+        const elements = section.querySelectorAll('.animate-item');
         
-        if (texts.length > 0) {
-          gsap.fromTo(texts, 
-            { opacity: 0, y: 30 },
+        if (elements.length > 0) {
+          gsap.fromTo(elements, 
+            { opacity: 0, y: 60 },
             { 
               opacity: 1, 
               y: 0, 
               duration: 1.5, 
               stagger: 0.3,
               ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        }
-
-        if (images.length > 0) {
-          gsap.fromTo(images, 
-            { opacity: 0, y: 50, scale: 0.95 },
-            { 
-              opacity: 1, 
-              y: 0, 
-              scale: 1,
-              duration: 2, 
-              ease: "power3.out",
               scrollTrigger: {
                 trigger: section,
                 start: "top 75%",
@@ -58,50 +39,70 @@ export default function Story() {
 
   return (
     <div className="story-container" ref={containerRef}>
-      {/* Intro */}
-      <section className="story-section" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p className="animate-text serif" style={{ fontSize: '2rem', textAlign: 'center' }}>
-          La noche está tranquila...<br/><span style={{ fontSize: '1rem', color: 'var(--color-text-muted)', marginTop: '2rem', display: 'block' }}>(Haz scroll suavemente)</span>
+      
+      {/* Chapter 1 */}
+      <section className="story-section" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '5rem', padding: '2rem' }}>
+        <p className="animate-item serif" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', textAlign: 'center', maxWidth: '600px' }}>
+          Todo comienza con una noche tranquila...
         </p>
-      </section>
-
-      {/* Memory 1 */}
-      <section className="story-section" style={{ height: '120vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem' }}>
-        <div className="animate-image glass" style={{ padding: '1rem', borderRadius: '4px', transform: 'rotate(-2deg)' }}>
-          <img src="/images/memory_hands_1783099932592.png" alt="Recuerdo" style={{ width: '300px', height: '350px', objectFit: 'cover', borderRadius: '2px' }} />
-        </div>
-        <p className="animate-text sans" style={{ fontSize: '1.2rem', maxWidth: '400px', textAlign: 'center', lineHeight: '2' }}>
-          Hay momentos que se quedan guardados en el tiempo, como estrellas en el firmamento.
-        </p>
-      </section>
-
-      {/* Memory 2 */}
-      <section className="story-section" style={{ height: '120vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem' }}>
-        <p className="animate-text serif" style={{ fontSize: '1.8rem', maxWidth: '500px', textAlign: 'center', lineHeight: '1.6' }}>
-          Pequeños instantes que, sin darnos cuenta, lo cambian todo.
-        </p>
-        <div className="animate-image glass" style={{ padding: '1rem', borderRadius: '4px', transform: 'rotate(3deg)' }}>
-          <img src="/images/memory_flowers_1783099963205.png" alt="Recuerdo" style={{ width: '300px', height: '350px', objectFit: 'cover', borderRadius: '2px' }} />
+        <div className="animate-item handwritten" style={{ fontSize: '2.5rem' }}>
+          y un cielo lleno de posibilidades.
         </div>
       </section>
 
-      {/* Memory 3 */}
-      <section className="story-section" style={{ height: '120vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem' }}>
-        <div className="animate-image glass" style={{ padding: '1rem', borderRadius: '4px', transform: 'rotate(-1deg)' }}>
-          <img src="/images/memory_coffee_1783099989172.png" alt="Recuerdo" style={{ width: '400px', height: '250px', objectFit: 'cover', borderRadius: '2px' }} />
+      {/* Chapter 2 */}
+      <section className="story-section" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4rem', padding: '2rem' }}>
+        <div className="animate-item photo-frame" style={{ maxWidth: '400px', transform: 'rotate(-2deg)' }}>
+          <img src="/images/memory_hands_1783099932592.png" alt="Recuerdo" />
         </div>
-        <p className="animate-text sans" style={{ fontSize: '1.2rem', maxWidth: '400px', textAlign: 'center', lineHeight: '2' }}>
-          Cada risa, cada silencio compartido.
+        <p className="animate-item serif" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', textAlign: 'center', maxWidth: '500px' }}>
+          Pequeños instantes que al principio parecen cotidianos, pero luego se vuelven inolvidables.
         </p>
       </section>
 
-      {/* Climax Pre-Question */}
-      <section className="story-section climax-trigger" style={{ height: '150vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <p className="animate-text serif" style={{ fontSize: '2.5rem', textAlign: 'center' }}>
-          Las mejores historias nunca comienzan con una respuesta.
+      {/* Chapter 3 */}
+      <section className="story-section" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem', padding: '2rem' }}>
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>Como una brisa de verano...</p>
+        <div className="animate-item photo-frame" style={{ maxWidth: '600px', transform: 'rotate(1deg)' }}>
+          <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoPlay loop muted playsInline />
+        </div>
+      </section>
+
+      {/* Chapter 4 */}
+      <section className="story-section" style={{ minHeight: '120vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4rem', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3rem', justifyContent: 'center' }}>
+          <div className="animate-item photo-frame" style={{ maxWidth: '300px', transform: 'rotate(-3deg)' }}>
+            <img src="/images/memory_flowers_1783099963205.png" alt="Recuerdo flores" />
+          </div>
+          <div className="animate-item photo-frame" style={{ maxWidth: '350px', transform: 'rotate(2deg)', marginTop: '4rem' }}>
+            <img src="/images/memory_coffee_1783099989172.png" alt="Recuerdo café" />
+          </div>
+        </div>
+        <p className="animate-item serif" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', textAlign: 'center', maxWidth: '600px', marginTop: '2rem' }}>
+          Coleccionando sonrisas y cafés a media tarde.
         </p>
-        <p className="animate-text sans" style={{ fontSize: '1.2rem', textAlign: 'center', marginTop: '5rem', color: 'var(--color-accent-gold)' }}>
-          Comienzan con una pregunta.
+      </section>
+
+      {/* Chapter 5 */}
+      <section className="story-section" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem', padding: '2rem' }}>
+        <div className="animate-item photo-frame" style={{ maxWidth: '500px', transform: 'rotate(-1deg)' }}>
+          <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" autoPlay loop muted playsInline />
+        </div>
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.2rem, 4vw, 3rem)' }}>Escribiendo nuestra propia aventura.</p>
+      </section>
+
+      {/* Chapter 6 */}
+      <section className="story-section climax-trigger" style={{ minHeight: '150vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '5rem', padding: '2rem' }}>
+        <div className="animate-item photo-frame" style={{ maxWidth: '400px' }}>
+          <img src="/images/memory_hands_1783099932592.png" alt="Recuerdo" />
+        </div>
+        
+        <div className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', textAlign: 'center', maxWidth: '750px', lineHeight: '1.6' }}>
+          Las mejores historias no son aquellas que están escritas en los libros, sino las que se construyen día a día con paciencia, cariño y la certeza de querer compartir el camino.
+        </div>
+        
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginTop: '4rem' }}>
+          Y esta historia apenas comienza.
         </p>
       </section>
     </div>

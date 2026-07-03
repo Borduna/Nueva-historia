@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 
 :root {
-  --color-bg-deep: #02010a;
-  --color-text-main: #fdfbf7;
-  --color-text-muted: #a1a1aa;
-  --color-accent-gold: #d4af37;
-  --color-accent-pink: #fbcfe8;
+  --color-bg-deep: #171520;
+  --color-bg-light: #242135;
+  --color-text-main: #fcf9f2;
+  --color-text-muted: #d0c9d6;
+  --color-accent-gold: #e2c073;
+  --color-accent-pink: #e8a5b9;
   
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-hand: 'Caveat', cursive;
 }
 
 * {
@@ -22,13 +23,13 @@ body, html {
   height: 100%;
   background-color: var(--color-bg-deep);
   color: var(--color-text-main);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   overflow-x: hidden;
   overscroll-behavior: none;
 }
 
-/* Canvas Container */
-#canvas-container {
+/* Background 2D Canvas substitute */
+#background-layer {
   position: fixed;
   top: 0;
   left: 0;
@@ -36,63 +37,74 @@ body, html {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
+  background: radial-gradient(circle at 50% 30%, var(--color-bg-light) 0%, var(--color-bg-deep) 90%);
+}
+
+.dust-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
 }
 
 /* Typography */
 h1, h2, h3, .serif {
   font-family: var(--font-serif);
-  font-weight: 400;
-}
-
-p, .sans {
-  font-family: var(--font-sans);
   font-weight: 300;
+  line-height: 1.4;
 }
 
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+.handwritten {
+  font-family: var(--font-hand);
+  letter-spacing: 0.05em;
+  color: var(--color-accent-gold);
+}
+
+/* Polaroid / Album Style */
+.photo-frame {
+  background: #fdfbf7;
+  padding: 1rem 1rem 3.5rem 1rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.photo-frame img, .photo-frame video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 
 /* Buttons */
 .btn-elegant {
   background: transparent;
   color: var(--color-text-main);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.75rem 2rem;
-  font-family: var(--font-sans);
-  font-size: 1rem;
+  border: 1px solid var(--color-accent-gold);
+  padding: 1rem 3rem;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 5px;
   transition: all 0.4s ease;
-  backdrop-filter: blur(5px);
 }
 
 .btn-elegant:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  background: var(--color-accent-gold);
+  color: var(--color-bg-deep);
 }
 
-/* Audio Player */
-.audio-control {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 50;
-  background: transparent;
-  border: none;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.audio-control:hover {
-  color: var(--color-text-main);
+.start-btn {
+  font-size: 2rem;
+  padding: 1.5rem 4rem;
 }

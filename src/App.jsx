@@ -1,23 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import Background from './components/Background';
 import Story from './components/Story';
 import FinalQuestion from './components/FinalQuestion';
 import { Volume2, VolumeX } from 'lucide-react';
 import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const appRef = useRef(null);
+  const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
-      duration: 1.5,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -26,28 +27,24 @@ function App() {
       smoothTouch: false,
       touchMultiplier: 2,
     });
+    lenisRef.current = lenis;
 
-    // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
-
     gsap.ticker.lagSmoothing(0);
 
     const ctx = gsap.context(() => {
-      // Fade out stars at the climax
       ScrollTrigger.create({
         trigger: ".climax-trigger",
         start: "top center",
         end: "bottom center",
         scrub: true,
         onUpdate: (self) => {
-          const canvasContainer = document.getElementById('canvas-container');
-          if (canvasContainer) {
-            canvasContainer.style.opacity = 1 - self.progress * 0.95;
-          }
+          const bg = document.getElementById('background-layer');
+          if (bg) bg.style.opacity = 1 - self.progress * 0.7;
         }
       });
     }, appRef);
@@ -70,11 +67,19 @@ function App() {
     }
   };
 
+  const handleStart = () => {
+    lenisRef.current.scrollTo('.story-container', { duration: 2, ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    if (!isPlaying && audioRef.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
   return (
     <div ref={appRef}>
       <Background />
       
-      <button className="audio-control" onClick={toggleAudio} aria-label="Toggle Music">
+      <button className="audio-control" onClick={toggleAudio} aria-label="Toggle Music" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 50, background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
         {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
       </button>
       
@@ -83,6 +88,11 @@ function App() {
       </audio>
 
       <main style={{ position: 'relative', zIndex: 10 }}>
+        {/* Intro Screen */}
+        <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <button className="btn-elegant start-btn" onClick={handleStart}>Comenzar</button>
+        </section>
+
         <Story />
         <FinalQuestion />
       </main>
