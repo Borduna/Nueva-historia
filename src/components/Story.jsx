@@ -49,6 +49,9 @@ export default function Story() {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // Lock ScrollTrigger resize calculations for mobile scrollbar hide/show stability
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.story-section');
       
@@ -57,14 +60,14 @@ export default function Story() {
         
         if (elements.length > 0) {
           gsap.fromTo(elements, 
-            { opacity: 0, y: 70 }, // reduced travel distance for softer entrance
+            { opacity: 0, y: 50 },
             { 
               opacity: 1, 
               y: 0, 
-              stagger: 0.15, 
+              stagger: 0.12, 
               scrollTrigger: {
                 trigger: section,
-                start: "top 90%", // start appearing early so screen isn't empty
+                start: "top 95%", 
                 end: "center center",
                 scrub: 1, 
               }
@@ -74,10 +77,12 @@ export default function Story() {
       });
     }, containerRef);
 
+    // Refresh layout heights dynamically on component load
+    ScrollTrigger.refresh();
+
     return () => ctx.revert();
   }, []);
 
-  // gap reduced to 5vh to ensure overlapping of narrative, zero empty space
   return (
     <div className="story-container" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', gap: '5vh', paddingBottom: '10vh' }}>
       

@@ -13,6 +13,8 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const appRef = useRef(null);
+  const introRef = useRef(null);
+  const flashRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,16 +47,40 @@ function App() {
   };
 
   const handleStart = () => {
-    gsap.to(window, { duration: 2, scrollTo: ".story-container", ease: "power2.inOut" });
+    // 1. Fade out the intro elements smoothly
+    gsap.to(introRef.current, {
+      opacity: 0,
+      y: -25,
+      duration: 0.8,
+      ease: "power2.out",
+      onComplete: () => {
+        if (introRef.current) {
+          introRef.current.style.display = 'none';
+        }
+      }
+    });
+
+    // 2. Play Audio if it's not active
     if (!isPlaying && audioRef.current) {
-      audioRef.current.play();
+      audioRef.current.play().catch(err => console.log("Audio autoplay prevented: ", err));
       setIsPlaying(true);
     }
+
+    // 3. Page turn flash transition and scroll to the story
+    const tl = gsap.timeline();
+    tl.to(flashRef.current, { opacity: 0.15, duration: 0.4, ease: "power1.out" })
+      .to(flashRef.current, { opacity: 0, duration: 0.5, ease: "power1.in" })
+      .to(window, {
+        duration: 1.5,
+        scrollTo: { y: ".story-container", offsetY: 20 },
+        ease: "power2.inOut"
+      }, "-=0.4");
   };
 
   return (
     <div ref={appRef}>
       <div id="paper-texture"></div>
+      <div ref={flashRef} className="book-flash"></div>
       <Background />
       
       <button className="audio-control" onClick={toggleAudio} aria-label="Toggle Music" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 50, background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
@@ -67,8 +93,8 @@ function App() {
 
       <main style={{ position: 'relative', zIndex: 10 }}>
         {/* Intro Screen - Timeless */}
-        <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '3rem' }}>
-          <h1 className="handwritten" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', opacity: 0.9 }}>Tengo algo que contarte...</h1>
+        <section ref={introRef} style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '3rem', padding: '2rem' }}>
+          <h1 className="handwritten" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', opacity: 0.9, textAlign: 'center' }}>Tengo algo que contarte...</h1>
           <button className="btn-elegant start-btn" onClick={handleStart}>Comenzar</button>
         </section>
 
