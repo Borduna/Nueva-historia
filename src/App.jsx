@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Lenis from 'lenis';
 import Background from './components/Background';
 import Story from './components/Story';
 import FinalQuestion from './components/FinalQuestion';
@@ -14,46 +13,25 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const appRef = useRef(null);
-  const lenisRef = useRef(null);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
-    lenisRef.current = lenis;
-
-    lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-
     const ctx = gsap.context(() => {
+      // Fade out background slightly at climax using scrub
       ScrollTrigger.create({
         trigger: ".climax-trigger",
         start: "top center",
         end: "bottom center",
-        scrub: true,
+        scrub: true, // 100% tied to scroll
         onUpdate: (self) => {
           const bg = document.getElementById('background-layer');
-          if (bg) bg.style.opacity = 1 - self.progress * 0.7;
+          if (bg) {
+            bg.style.opacity = 1 - self.progress * 0.7;
+          }
         }
       });
     }, appRef);
 
-    return () => {
-      ctx.revert();
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
-    };
+    return () => ctx.revert();
   }, []);
 
   const toggleAudio = () => {
@@ -68,7 +46,7 @@ function App() {
   };
 
   const handleStart = () => {
-    lenisRef.current.scrollTo('.story-container', { duration: 2, ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    gsap.to(window, { duration: 1.5, scrollTo: ".story-container", ease: "power2.inOut" });
     if (!isPlaying && audioRef.current) {
       audioRef.current.play();
       setIsPlaying(true);

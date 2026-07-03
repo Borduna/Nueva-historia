@@ -11,15 +11,15 @@ export default function FinalQuestion() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(containerRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 100 },
         {
           opacity: 1,
           y: 0,
-          duration: 2,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 75%",
-            toggleActions: "play none none reverse"
+            start: "top 90%",
+            end: "center center",
+            scrub: 1
           }
         }
       );
@@ -30,7 +30,6 @@ export default function FinalQuestion() {
 
   const handleHoverNo = () => {
     if (escapes < 3) {
-      // Move button randomly but constrained
       const x = (Math.random() - 0.5) * 200;
       const y = (Math.random() - 0.5) * 100 - 50;
       
