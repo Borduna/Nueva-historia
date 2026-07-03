@@ -16,12 +16,11 @@ function App() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Fade out background slightly at climax using scrub
       ScrollTrigger.create({
         trigger: ".climax-trigger",
         start: "top center",
         end: "bottom center",
-        scrub: true, // 100% tied to scroll
+        scrub: true,
         onUpdate: (self) => {
           const bg = document.getElementById('background-layer');
           if (bg) {
@@ -46,7 +45,7 @@ function App() {
   };
 
   const handleStart = () => {
-    gsap.to(window, { duration: 1.5, scrollTo: ".story-container", ease: "power2.inOut" });
+    gsap.to(window, { duration: 2, scrollTo: ".story-container", ease: "power2.inOut" });
     if (!isPlaying && audioRef.current) {
       audioRef.current.play();
       setIsPlaying(true);
@@ -55,6 +54,7 @@ function App() {
 
   return (
     <div ref={appRef}>
+      <div id="paper-texture"></div>
       <Background />
       
       <button className="audio-control" onClick={toggleAudio} aria-label="Toggle Music" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 50, background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
@@ -67,7 +67,8 @@ function App() {
 
       <main style={{ position: 'relative', zIndex: 10 }}>
         {/* Intro Screen */}
-        <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '3rem' }}>
+          <h1 className="handwritten" style={{ fontSize: '4rem', opacity: 0.8 }}>Nuestra Historia</h1>
           <button className="btn-elegant start-btn" onClick={handleStart}>Comenzar</button>
         </section>
 

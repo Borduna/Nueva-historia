@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 
 :root {
-  --color-bg-deep: #171520;
-  --color-bg-light: #242135;
-  --color-text-main: #fcf9f2;
+  --color-bg-deep: #252233; /* Soft warm purple-grey */
+  --color-bg-light: #443c5b; /* Light misty blue-purple */
+  --color-bg-cream: #f4f0e6;
+  --color-text-main: #fdfbf7;
   --color-text-muted: #d0c9d6;
-  --color-accent-gold: #e2c073;
+  --color-accent-gold: #e2c583;
   --color-accent-pink: #e8a5b9;
   
   --font-serif: 'Cormorant Garamond', serif;
@@ -28,38 +29,48 @@ body, html {
   overscroll-behavior: none;
 }
 
-/* Background 2D Canvas substitute */
+/* Background gradient */
 #background-layer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 30%, var(--color-bg-light) 0%, var(--color-bg-deep) 90%);
+  background: radial-gradient(circle at 50% 30%, var(--color-bg-light) 0%, var(--color-bg-deep) 100%);
 }
 
-.dust-particle {
+/* Paper Texture Overlay */
+#paper-texture {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.floating-element {
   position: absolute;
-  background: white;
-  border-radius: 50%;
   opacity: 0.3;
   animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-  10% { opacity: 0.5; }
-  90% { opacity: 0.5; }
-  100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+  0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) rotate(180deg); opacity: 0; }
 }
 
 /* Typography */
 h1, h2, h3, .serif {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.4;
+  color: var(--color-text-main);
 }
 
 .handwritten {
@@ -68,34 +79,57 @@ h1, h2, h3, .serif {
   color: var(--color-accent-gold);
 }
 
-/* Polaroid / Album Style */
+/* Polaroid / Scrapbook Style */
 .photo-frame {
-  background: #fdfbf7;
-  padding: 1rem 1rem 3.5rem 1rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border-radius: 2px;
+  background: var(--color-bg-cream);
+  padding: 0.8rem 0.8rem 3rem 0.8rem;
+  box-shadow: 2px 8px 25px rgba(15, 10, 30, 0.4);
+  border-radius: 1px;
   position: relative;
-  border: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.8);
+  border-left: 1px solid rgba(255,255,255,0.4);
 }
 
 .photo-frame img, .photo-frame video {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
+  filter: sepia(0.15) contrast(0.9) brightness(1.05); /* Nostalgic tint */
+}
+
+/* Frame Orientations */
+.frame-vertical { width: 300px; height: 420px; }
+.frame-horizontal { width: 450px; height: 320px; }
+.frame-square { width: 320px; height: 320px; }
+
+/* Tape Effect */
+.tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 90px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  clip-path: polygon(1% 5%, 98% 1%, 99% 95%, 2% 98%);
+  z-index: 2;
 }
 
 /* Buttons */
 .btn-elegant {
   background: transparent;
-  color: var(--color-text-main);
+  color: var(--color-accent-gold);
   border: 1px solid var(--color-accent-gold);
   padding: 1rem 3rem;
   font-family: var(--font-serif);
   font-size: 1.5rem;
   letter-spacing: 0.1em;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 4px;
   transition: all 0.4s ease;
 }
 
@@ -106,5 +140,5 @@ h1, h2, h3, .serif {
 
 .start-btn {
   font-size: 2rem;
-  padding: 1.5rem 4rem;
+  padding: 1.2rem 4rem;
 }
