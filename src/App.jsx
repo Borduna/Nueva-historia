@@ -66,9 +66,9 @@ function App() {
       </audio>
 
       <main style={{ position: 'relative', zIndex: 10 }}>
-        {/* Intro Screen */}
+        {/* Intro Screen - Timeless */}
         <section style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '3rem' }}>
-          <h1 className="handwritten" style={{ fontSize: '4rem', opacity: 0.8 }}>Nuestra Historia</h1>
+          <h1 className="handwritten" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', opacity: 0.9 }}>Tengo algo que contarte...</h1>
           <button className="btn-elegant start-btn" onClick={handleStart}>Comenzar</button>
         </section>
 

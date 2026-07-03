@@ -142,3 +142,37 @@ h1, h2, h3, .serif {
   font-size: 2rem;
   padding: 1.2rem 4rem;
 }
+
+/* New animations and options */
+.pulsing-heart {
+  animation: heartBeat 2.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(226, 197, 131, 0.2)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 15px rgba(226, 197, 131, 0.6)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(226, 197, 131, 0.2)); }
+}
+
+.funny-option {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: rgba(253, 251, 247, 0.6);
+  cursor: default;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+.funny-option:hover {
+  color: var(--color-text-main);
+}
+
+.yes-option {
+  color: var(--color-accent-gold);
+  font-size: 2.2rem;
+  transition: all 0.3s ease;
+}
+.yes-option:hover {
+  transform: scale(1.03);
+  text-shadow: 0 0 10px rgba(226, 197, 131, 0.5);
+}

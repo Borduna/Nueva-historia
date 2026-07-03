@@ -4,20 +4,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function FinalQuestion() {
   const [answered, setAnswered] = useState(false);
-  const [escapes, setEscapes] = useState(0);
-  const noBtnRef = useRef(null);
   const containerRef = useRef(null);
+  const noOptionRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(containerRef.current,
-        { opacity: 0, y: 100 },
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 90%",
+            start: "top 85%",
             end: "center center",
             scrub: 1
           }
@@ -28,66 +27,64 @@ export default function FinalQuestion() {
     return () => ctx.revert();
   }, []);
 
-  const handleHoverNo = () => {
-    if (escapes < 3) {
-      const x = (Math.random() - 0.5) * 200;
-      const y = (Math.random() - 0.5) * 100 - 50;
-      
-      gsap.to(noBtnRef.current, {
-        x: x,
-        y: y,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-      setEscapes(prev => prev + 1);
-    }
-  };
-
   const handleYes = () => {
     setAnswered(true);
   };
 
-  const handleNo = () => {
-    setAnswered(true);
+  const handleHoverNo = () => {
+    // Playful escape animation for the funny "no" option
+    const x = (Math.random() - 0.5) * 80;
+    const y = (Math.random() - 0.5) * 40;
+    
+    gsap.to(noOptionRef.current, {
+      x: x,
+      y: y,
+      duration: 0.4,
+      ease: "power2.out"
+    });
   };
 
   return (
-    <section ref={containerRef} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 20 }}>
+    <section ref={containerRef} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 20, padding: '2rem', paddingBottom: '20vh' }}>
       {!answered ? (
-        <div style={{ textAlign: 'center' }}>
-          <h1 className="serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '4rem', textShadow: '0 0 30px rgba(253, 251, 247, 0.4)' }}>
+        <div style={{ textAlign: 'center', maxWidth: '700px', width: '100%' }}>
+          <h1 className="serif" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', marginBottom: '4rem', color: 'var(--color-text-main)' }}>
             ¿Quieres ser mi novia?
           </h1>
           
-          <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-elegant" onClick={handleYes} style={{ fontSize: '1.2rem', padding: '1rem 3rem' }}>
-              Sí 💛
-            </button>
-            <button 
-              ref={noBtnRef}
-              className="btn-elegant" 
-              style={{ position: 'relative', fontSize: '1.2rem', padding: '1rem 3rem' }}
-              onMouseEnter={handleHoverNo}
-              onClick={handleNo}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center' }}>
+            <div 
+              className="handwritten yes-option" 
+              onClick={handleYes} 
+              style={{ cursor: 'pointer', padding: '1rem', display: 'inline-block' }}
             >
-              Todavía no...
-            </button>
+              💛 Para decir que sí, solo respira.
+            </div>
+            
+            <div 
+              ref={noOptionRef}
+              className="handwritten funny-option"
+              onMouseEnter={handleHoverNo}
+              style={{ padding: '1rem', display: 'inline-block', position: 'relative' }}
+            >
+              🌙 Para decir que no, tendrás que dar un mortal doble hacia atrás, darle una vuelta a la luna y regresar.
+            </div>
           </div>
         </div>
       ) : (
         <div style={{ textAlign: 'center' }} className="serif fade-in-fast">
-          <h2 style={{ fontSize: '3rem', color: 'var(--color-accent-gold)', textShadow: '0 0 20px rgba(212, 175, 55, 0.5)' }}>Y así comienza nuestra historia...</h2>
-          <p className="sans" style={{ marginTop: '2rem', opacity: 0.7 }}>Gracias por esta noche.</p>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'var(--color-accent-gold)' }}>Y así comienza un nuevo capítulo...</h2>
+          <p className="handwritten" style={{ marginTop: '2rem', fontSize: 'clamp(2rem, 4vw, 3rem)', opacity: 0.8 }}>Gracias por decir que sí.</p>
         </div>
       )}
       
       <style>{`
         .fade-in-fast {
-          animation: fadeInFast 2s ease forwards;
+          animation: fadeInFast 3s ease forwards;
         }
         @keyframes fadeInFast {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+          to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
       `}</style>
     </section>
