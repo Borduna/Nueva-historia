@@ -48,8 +48,8 @@ export default function FinalQuestion() {
     <section ref={containerRef} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 20, padding: '2rem', paddingBottom: '20vh' }}>
       {!answered ? (
         <div style={{ textAlign: 'center', maxWidth: '700px', width: '100%' }}>
-          <h1 className="serif" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', marginBottom: '4rem', color: 'var(--color-text-main)' }}>
-            ¿Quieres ser mi novia?
+          <h1 className="serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '4rem', color: 'var(--color-text-main)', lineHeight: '1.3' }}>
+            ¿Qué te parece si seguimos formando nuestra historia, pero ahora siendo novios? ❤️
           </h1>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center' }}>
@@ -72,19 +72,29 @@ export default function FinalQuestion() {
           </div>
         </div>
       ) : (
-        <div style={{ textAlign: 'center' }} className="serif fade-in-fast">
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'var(--color-accent-gold)' }}>Y así comienza un nuevo capítulo...</h2>
-          <p className="handwritten" style={{ marginTop: '2rem', fontSize: 'clamp(2rem, 4vw, 3rem)', opacity: 0.8 }}>Gracias por decir que sí.</p>
+        <div style={{ textAlign: 'center', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }} className="fade-in-slow">
+          <p className="serif" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: 'var(--color-text-main)', lineHeight: '1.6' }}>
+            Sabía que valía la pena contarte toda esta historia.
+          </p>
+          <p className="serif" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: 'var(--color-text-main)', lineHeight: '1.6' }}>
+            Gracias por llegar hasta aquí, por cada risa, cada conversación y cada momento que hemos compartido.
+          </p>
+          <p className="serif" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: 'var(--color-text-main)', lineHeight: '1.6' }}>
+            Hoy comienza un capítulo nuevo, y no puedo esperar para escribirlo contigo.
+          </p>
+          <p className="handwritten" style={{ marginTop: '2rem', fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--color-accent-gold)' }}>
+            Te quiero muchísimo. ❤️
+          </p>
         </div>
       )}
       
       <style>{`
-        .fade-in-fast {
-          animation: fadeInFast 3s ease forwards;
+        .fade-in-slow {
+          animation: fadeInSlow 4s ease forwards;
         }
-        @keyframes fadeInFast {
-          from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
-          to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        @keyframes fadeInSlow {
+          0% { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+          100% { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
       `}</style>
     </section>
