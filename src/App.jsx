@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Story from './components/Story';
 import FinalQuestion from './components/FinalQuestion';
+import { CrayolaFilter } from './components/CrayolaDoodles';
 import { Volume2, VolumeX } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <div>
+      <CrayolaFilter />
       <div id="paper-texture"></div>
       
       {/* Intro Overlay - Desaparece completamente del DOM para no capturar eventos */}

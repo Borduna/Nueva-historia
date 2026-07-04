@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DoodleHeart, DoodleCelebrating, DoodleTogether } from './CrayolaDoodles';
 
 export default function FinalQuestion() {
   const [answered, setAnswered] = useState(false);
@@ -47,7 +48,8 @@ export default function FinalQuestion() {
   return (
     <section ref={containerRef} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 20, padding: '2rem', paddingBottom: '20vh' }}>
       {!answered ? (
-        <div style={{ textAlign: 'center', maxWidth: '700px', width: '100%' }}>
+        <div style={{ textAlign: 'center', maxWidth: '700px', width: '100%', position: 'relative' }}>
+          <DoodleHeart style={{ top: '-100px', left: '0', transform: 'rotate(-10deg)' }} />
           <h1 className="serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '4rem', color: 'var(--color-text-main)', lineHeight: '1.3' }}>
             ¿Qué te parece si seguimos formando nuestra historia, pero ahora siendo novios? ❤️
           </h1>
@@ -72,7 +74,9 @@ export default function FinalQuestion() {
           </div>
         </div>
       ) : (
-        <div style={{ textAlign: 'center', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }} className="fade-in-slow">
+        <div style={{ textAlign: 'center', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem', position: 'relative' }} className="fade-in-slow">
+          <DoodleCelebrating style={{ top: '-60px', right: '-40px', transform: 'rotate(15deg)' }} />
+          <DoodleTogether style={{ bottom: '-60px', left: '-20px', transform: 'rotate(-10deg)' }} />
           <p className="serif" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: 'var(--color-text-main)', lineHeight: '1.6' }}>
             Sabía que valía la pena contarte toda esta historia.
           </p>

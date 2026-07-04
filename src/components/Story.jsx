@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DoodleHoldingHands, DoodleWalking, DoodleKiss, DoodleSitting } from './CrayolaDoodles';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,8 +75,9 @@ export default function Story() {
     <div className="story-container" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', paddingBottom: '10vh', paddingTop: '10vh' }}>
       
       {/* Chapter 1 - Rápido */}
-      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <p className="animate-item serif" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', textAlign: 'center', maxWidth: '600px' }}>
+      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
+        <DoodleHoldingHands style={{ bottom: '10%', right: '15%', transform: 'rotate(-5deg)' }} />
+        <p className="animate-item serif" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', textAlign: 'center', maxWidth: '600px', zIndex: 10 }}>
           Hay cosas que uno lleva guardadas por un buen tiempo...
         </p>
       </section>
@@ -89,13 +91,15 @@ export default function Story() {
       </section>
 
       {/* Chapter 3 - Rápido */}
-      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)' }}>Risa a risa, momento a momento...</p>
+      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
+        <DoodleKiss style={{ top: '20%', left: '15%', transform: 'rotate(10deg)' }} />
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', zIndex: 10 }}>Risa a risa, momento a momento...</p>
       </section>
 
       {/* Chapter 4: Primera Foto (Lenta y Asimétrica) */}
-      <section className="story-section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', maxWidth: '800px', width: '100%', gap: '1.5rem' }}>
+      <section className="story-section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
+        <DoodleWalking style={{ top: '5%', left: '10%', transform: 'rotate(-5deg)' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', maxWidth: '800px', width: '100%', gap: '1.5rem', zIndex: 10 }}>
           <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(2.5deg)', marginRight: '5%' }}>
             <div className="tape"></div>
             <MiniFlower />
@@ -131,8 +135,9 @@ export default function Story() {
       </section>
 
       {/* Chapter 6: Videos (Lento y Asimétrico) */}
-      <section className="story-section" style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', width: '100%' }}>
+      <section className="story-section" style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
+        <DoodleSitting style={{ top: '5%', right: '10%', transform: 'rotate(8deg)' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', width: '100%', zIndex: 10 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
             <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2deg)' }}>
               <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
