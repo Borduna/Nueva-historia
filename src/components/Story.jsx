@@ -15,7 +15,7 @@ const MiniFlower = () => (
 );
 
 const MiniHeart = () => (
-  <svg viewBox="0 0 30 30" width="25" height="25" style={{ opacity: 0.5, margin: '1rem auto', display: 'block' }}>
+  <svg viewBox="0 0 30 30" width="25" height="25" style={{ opacity: 0.5, margin: '0 auto', display: 'block' }}>
     <path d="M15 10 C10 0 0 10 15 25 C30 10 20 0 15 10 Z" stroke="var(--color-accent-pink)" strokeWidth="2" fill="none" strokeLinejoin="round" />
   </svg>
 );
@@ -47,15 +47,16 @@ export default function Story() {
         
         if (elements.length > 0) {
           gsap.fromTo(elements, 
-            { opacity: 0, y: 30 }, // Menos desplazamiento = más orgánico y menos saltos
+            { opacity: 0, y: 40 }, // Un poco más de desplazamiento inicial
             { 
               opacity: 1, 
               y: 0, 
-              stagger: 0.1, 
+              stagger: 0.15, // Más pausa entre elemento y elemento (texto -> foto)
+              ease: "power2.out", // Aterrizaje suave como poner una foto en papel
               scrollTrigger: {
                 trigger: section,
-                start: "top 85%", 
-                end: "center center",
+                start: "top 95%", 
+                end: "center 40%", // Tarda un poco más en alcanzar el 100% (revelado lento)
                 scrub: 1, 
               }
             }
@@ -69,94 +70,106 @@ export default function Story() {
     return () => ctx.revert();
   }, []);
 
-  // Alturas ajustadas para asegurar flujo constante sin baches negros ni blancos
   return (
-    <div className="story-container" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', gap: '2vh', paddingBottom: '15vh', paddingTop: '10vh' }}>
+    <div className="story-container" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', paddingBottom: '10vh', paddingTop: '10vh' }}>
       
-      {/* Chapter 1 */}
+      {/* Chapter 1 - Rápido */}
       <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
         <p className="animate-item serif" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', textAlign: 'center', maxWidth: '600px' }}>
           Hay cosas que uno lleva guardadas por un buen tiempo...
         </p>
       </section>
 
-      {/* Chapter 2 */}
-      <section className="story-section" style={{ minHeight: '40vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '600px' }}>
+      {/* Chapter 2 - Rápido */}
+      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '600px', marginBottom: '1rem' }}>
           Y poco a poco, casi sin darme cuenta, te fuiste convirtiendo en mi parte favorita de los días.
         </p>
         <div className="animate-item"><MiniHeart /></div>
       </section>
 
-      {/* Chapter 3 */}
-      <section className="story-section" style={{ minHeight: '40vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+      {/* Chapter 3 - Rápido */}
+      <section className="story-section" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
         <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)' }}>Risa a risa, momento a momento...</p>
       </section>
 
-      {/* Chapter 4: Memories Begin (With Photos) */}
-      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2.5deg)' }}>
-          <div className="tape"></div>
-          <MiniFlower />
-          <img src="/images/photo1.jpg" alt="Recuerdo de nosotros" />
-        </div>
-        <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '550px', marginTop: '1.5rem' }}>
-          Los recuerdos empezaron a tener tu nombre.
-        </p>
-      </section>
-
-      {/* Chapter 5: More Memories */}
-      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="animate-item photo-frame frame-square" style={{ transform: 'rotate(3deg)' }}>
-            <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
-            <img src="/images/photo2.png" alt="Nuestro recuerdo" />
+      {/* Chapter 4: Primera Foto (Lenta y Asimétrica) */}
+      <section className="story-section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', maxWidth: '800px', width: '100%', gap: '1.5rem' }}>
+          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(2.5deg)', marginRight: '5%' }}>
+            <div className="tape"></div>
+            <MiniFlower />
+            <img src="/images/photo1.jpg" alt="Recuerdo de nosotros" />
           </div>
-          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-4deg)', marginTop: '2rem' }}>
-            <div className="tape" style={{ top: '-8px' }}></div>
-            <MiniStar />
-            <img src="/images/photo3.png" alt="Nuestro recuerdo" />
-          </div>
-        </div>
-        <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '650px', marginTop: '2.5rem' }}>
-          Coleccionando instantes, charlas largas y miradas que lo dicen todo.
-        </p>
-      </section>
-
-      {/* Chapter 6: Video memory */}
-      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2deg)' }}>
-            <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
-            <video src="/videos/video1.mp4" autoPlay loop muted playsInline />
-          </div>
-          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(3deg)', marginTop: '2rem' }}>
-            <div className="tape" style={{ top: '-8px' }}></div>
-            <MiniHeart />
-            <video src="/videos/video2.mp4" autoPlay loop muted playsInline />
-          </div>
-        </div>
-        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', textAlign: 'center', marginTop: '2.5rem' }}>
-          Construyendo nuestra propia historia, a nuestro propio ritmo.
-        </p>
-      </section>
-
-      {/* Chapter 7: Final Photo */}
-      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3rem', padding: '2rem' }}>
-        <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(2deg)' }}>
-          <div className="tape"></div>
-          <MiniFlower />
-          <img src="/images/photo4.png" alt="Nuestro recuerdo final" />
-        </div>
-        <div className="animate-item serif" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', textAlign: 'center', maxWidth: '750px', lineHeight: '1.6' }}>
-          Porque hay personas que llegan y simplemente cambian la forma en que vemos el mundo.
+          <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'right', width: '100%', paddingRight: '15%' }}>
+            Los recuerdos empezaron a tener tu nombre.
+          </p>
         </div>
       </section>
 
-      {/* Chapter 8: Expectation / Pause */}
-      <section className="story-section climax-trigger" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        <PulsingHeart />
-        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginTop: '1rem', textAlign: 'center' }}>
+      {/* Chapter 5: Dos Fotos (Lenta y Desordenada) */}
+      <section className="story-section" style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', maxWidth: '800px', width: '100%' }}>
+          
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'center', alignItems: 'flex-start', width: '100%', marginBottom: '2rem' }}>
+            <div className="animate-item photo-frame frame-square" style={{ transform: 'rotate(-3deg)', zIndex: 2 }}>
+              <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
+              <img src="/images/photo2.png" alt="Nuestro recuerdo" />
+            </div>
+            
+            <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(4deg)', marginTop: '4rem', marginLeft: '-2rem', zIndex: 1 }}>
+              <div className="tape" style={{ top: '-8px' }}></div>
+              <MiniStar />
+              <img src="/images/photo3.png" alt="Nuestro recuerdo" />
+            </div>
+          </div>
+          
+          <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'left', paddingLeft: '10%' }}>
+            Coleccionando instantes, charlas largas y miradas que lo dicen todo.
+          </p>
+        </div>
+      </section>
+
+      {/* Chapter 6: Videos (Lento y Asimétrico) */}
+      <section className="story-section" style={{ minHeight: '85vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', width: '100%' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2deg)' }}>
+              <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
+              <video src="/videos/video1.mp4" autoPlay loop muted playsInline />
+            </div>
+            <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(3deg)', marginTop: '3rem' }}>
+              <div className="tape" style={{ top: '-8px' }}></div>
+              <div style={{ position: 'absolute', top: '-25px', right: '-15px', zIndex: 3 }}><MiniHeart /></div>
+              <video src="/videos/video2.mp4" autoPlay loop muted playsInline />
+            </div>
+          </div>
+          <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', textAlign: 'center', marginTop: '3rem' }}>
+            Construyendo nuestra propia historia, a nuestro propio ritmo.
+          </p>
+        </div>
+      </section>
+
+      {/* Chapter 7: Final Photo (Centrada, con mucho respiro) */}
+      <section className="story-section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', maxWidth: '800px', width: '100%' }}>
+          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(1.5deg)' }}>
+            <div className="tape"></div>
+            <MiniFlower />
+            <img src="/images/photo4.png" alt="Nuestro recuerdo final" />
+          </div>
+          <div className="animate-item serif" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', textAlign: 'center', lineHeight: '1.6', padding: '0 1rem' }}>
+            Porque hay personas que llegan y simplemente cambian la forma en que vemos el mundo.
+          </div>
+        </div>
+      </section>
+
+      {/* Chapter 8: El Climax (Muchísimo espacio para respirar) */}
+      <section className="story-section climax-trigger" style={{ minHeight: '120vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ marginBottom: '10vh' }}>
+          <PulsingHeart />
+        </div>
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', textAlign: 'center' }}>
           Así que, después de todo este camino recorrido...
         </p>
       </section>
