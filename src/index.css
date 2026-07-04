@@ -20,7 +20,7 @@
 }
 
 html {
-  overflow-x: hidden;
+  /* Only one scroll container allowed */
 }
 
 body {
