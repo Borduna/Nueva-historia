@@ -98,7 +98,7 @@ export default function Story() {
         <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2.5deg)' }}>
           <div className="tape"></div>
           <MiniFlower />
-          <img src="/images/memory_hands_1783099932592.png" alt="Recuerdo Placeholder" />
+          <img src="/images/photo1.jpg" alt="Recuerdo de nosotros" />
         </div>
         <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '550px', marginTop: '1.5rem' }}>
           Los recuerdos empezaron a tener tu nombre.
@@ -110,12 +110,12 @@ export default function Story() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
           <div className="animate-item photo-frame frame-square" style={{ transform: 'rotate(3deg)' }}>
             <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
-            <img src="/images/memory_flowers_1783099963205.png" alt="Recuerdo flores Placeholder" />
+            <img src="/images/photo2.png" alt="Nuestro recuerdo" />
           </div>
           <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-4deg)', marginTop: '2rem' }}>
             <div className="tape" style={{ top: '-8px' }}></div>
             <MiniStar />
-            <img src="/images/memory_coffee_1783099989172.png" alt="Recuerdo café Placeholder" />
+            <img src="/images/photo3.png" alt="Nuestro recuerdo" />
           </div>
         </div>
         <p className="animate-item serif" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', textAlign: 'center', maxWidth: '650px', marginTop: '2.5rem' }}>
@@ -124,12 +124,21 @@ export default function Story() {
       </section>
 
       {/* Chapter 6: Video memory */}
-      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        <div className="animate-item photo-frame frame-horizontal" style={{ transform: 'rotate(-1.5deg)' }}>
-          <div className="tape"></div>
-          <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" autoPlay loop muted playsInline />
+      <section className="story-section" style={{ minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(-2deg)' }}>
+            <div className="tape" style={{ top: '-10px', left: '20%', transform: 'rotate(-5deg)' }}></div>
+            <video src="/videos/video1.mp4" autoPlay loop muted playsInline />
+          </div>
+          <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(3deg)', marginTop: '2rem' }}>
+            <div className="tape" style={{ top: '-8px' }}></div>
+            <MiniHeart />
+            <video src="/videos/video2.mp4" autoPlay loop muted playsInline />
+          </div>
         </div>
-        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', textAlign: 'center', marginTop: '1.5rem' }}>Construyendo nuestra propia historia, a nuestro propio ritmo.</p>
+        <p className="animate-item handwritten" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', textAlign: 'center', marginTop: '2.5rem' }}>
+          Construyendo nuestra propia historia, a nuestro propio ritmo.
+        </p>
       </section>
 
       {/* Chapter 7: Final Photo */}
@@ -137,7 +146,7 @@ export default function Story() {
         <div className="animate-item photo-frame frame-vertical" style={{ transform: 'rotate(2deg)' }}>
           <div className="tape"></div>
           <MiniFlower />
-          <img src="/images/memory_hands_1783099932592.png" alt="Recuerdo Placeholder" />
+          <img src="/images/photo4.png" alt="Nuestro recuerdo final" />
         </div>
         <div className="animate-item serif" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', textAlign: 'center', maxWidth: '750px', lineHeight: '1.6' }}>
           Porque hay personas que llegan y simplemente cambian la forma en que vemos el mundo.

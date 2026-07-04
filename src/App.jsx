@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
   const audioRef = useRef(null);
 
   const toggleAudio = () => {
@@ -24,27 +25,34 @@ function App() {
   };
 
   const handleStart = () => {
-    // Solo desaparece la capa superpuesta. El usuario controla el scroll instantáneamente.
     setIsStarted(true);
     if (!isPlaying && audioRef.current) {
       audioRef.current.play().catch(err => console.log("Audio autoplay prevented: ", err));
       setIsPlaying(true);
     }
+
+    // Esperar a que termine la transición CSS de 1.5s antes de desmontar completamente
+    setTimeout(() => {
+      setShowOverlay(false);
+      ScrollTrigger.refresh();
+    }, 1500);
   };
 
   return (
     <div>
       <div id="paper-texture"></div>
       
-      {/* Intro Overlay - Fixed and fades out without affecting document height */}
-      <div className={`intro-overlay ${isStarted ? 'started' : ''}`}>
-        <h1 className="handwritten" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', opacity: 0.9, textAlign: 'center' }}>
-          Tengo algo que contarte...
-        </h1>
-        <button className="btn-elegant start-btn" onClick={handleStart}>
-          Comenzar
-        </button>
-      </div>
+      {/* Intro Overlay - Desaparece completamente del DOM para no capturar eventos */}
+      {showOverlay && (
+        <div className={`intro-overlay ${isStarted ? 'started' : ''}`}>
+          <h1 className="handwritten" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', opacity: 0.9, textAlign: 'center' }}>
+            Tengo algo que contarte...
+          </h1>
+          <button className="btn-elegant start-btn" onClick={handleStart}>
+            Comenzar
+          </button>
+        </div>
+      )}
       
       <button className="audio-control" onClick={toggleAudio} aria-label="Toggle Music" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 60, background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
         {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
