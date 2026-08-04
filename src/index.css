@@ -346,3 +346,30 @@ h1, h2, h3, .serif {
   text-align: center;
   overflow-y: auto;
 }
+
+/* Card Enhancements for Mobile Reading */
+.prose-card, .poem-card, .quote-card, .closing-block-card {
+  width: 90vw;
+  max-width: 680px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .prose-card {
+    padding: 1.6rem 1.2rem !important;
+  }
+  .poem-card {
+    padding: 1.6rem 1.2rem !important;
+  }
+  .quote-card {
+    padding: 1.5rem 1.1rem !important;
+  }
+  .closing-block-card {
+    padding: 1.5rem 1.2rem !important;
+  }
+}
+
