@@ -62,11 +62,13 @@ h1, h2, h3, .serif {
 /* Polaroid / Scrapbook Style - Mobile First */
 .photo-frame {
   background: #ffffff;
-  padding: 0.6rem 0.6rem 2.2rem 0.6rem;
-  box-shadow: 1px 4px 15px rgba(50, 45, 40, 0.12); /* Softer, warmer shadow */
-  border-radius: 2px;
+  padding: 0.6rem 0.6rem 2rem 0.6rem;
+  box-shadow: 0 4px 20px rgba(50, 45, 40, 0.12); /* Warm shadow */
+  border-radius: 4px;
   position: relative;
-  max-width: 90vw;
+  max-width: 92vw;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .photo-frame img, .photo-frame video {
@@ -74,20 +76,88 @@ h1, h2, h3, .serif {
   height: 100%;
   display: block;
   object-fit: cover;
-  filter: sepia(0.12) contrast(0.96) brightness(1.01); /* Nostalgic warm tint */
+  border-radius: 2px;
+  filter: sepia(0.08) contrast(0.98) brightness(1.01); /* Nostalgic warm tint */
 }
 
 /* Responsive Frames (Mobile First) */
-.frame-vertical { width: 270px; height: 360px; }
-.frame-horizontal { width: 320px; height: 240px; }
-.frame-square { width: 270px; height: 270px; }
+.frame-vertical { 
+  width: 88vw; 
+  max-width: 440px; 
+  aspect-ratio: 3 / 4; 
+  height: auto;
+}
+
+.frame-horizontal { 
+  width: 90vw; 
+  max-width: 500px; 
+  aspect-ratio: 4 / 3; 
+  height: auto;
+}
+
+.frame-square { 
+  width: 88vw; 
+  max-width: 420px; 
+  aspect-ratio: 1 / 1; 
+  height: auto;
+}
+
+.frame-video {
+  width: 90vw;
+  max-width: 480px;
+  padding: 0.6rem 0.6rem 1.6rem 0.6rem;
+}
 
 /* Tablet & Desktop sizing */
 @media (min-width: 768px) {
-  .photo-frame { padding: 0.8rem 0.8rem 3rem 0.8rem; }
-  .frame-vertical { width: 300px; height: 420px; }
-  .frame-horizontal { width: 450px; height: 320px; }
-  .frame-square { width: 320px; height: 320px; }
+  .photo-frame { padding: 0.8rem 0.8rem 2.5rem 0.8rem; }
+  .frame-vertical { width: 380px; }
+  .frame-horizontal { width: 480px; }
+  .frame-square { width: 380px; }
+  .frame-video { width: 440px; }
+}
+
+/* Live Counter Layout (Responsive 2x2 on Mobile, 4-col on Desktop) */
+.live-counter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 520px) {
+  .live-counter-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.counter-unit {
+  padding: 0.8rem 0.4rem;
+  background: var(--color-bg-light);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(194, 153, 76, 0.15);
+}
+
+.counter-number {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--color-text-main);
+  display: block;
+  line-height: 1.1;
+}
+
+.counter-seconds {
+  color: var(--color-accent-pink);
+}
+
+.counter-label {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
 }
 
 /* Tape Effect */
@@ -113,23 +183,30 @@ h1, h2, h3, .serif {
 /* Chapter Selection Cards */
 .chapter-cards-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  flex-direction: column;
+  gap: 1.8rem;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   max-width: 900px;
   width: 100%;
   margin-top: 1rem;
 }
 
+@media (min-width: 768px) {
+  .chapter-cards-container {
+    flex-direction: row;
+    gap: 2.5rem;
+  }
+}
+
 .chapter-card {
   background: #ffffff;
-  padding: 2.2rem 1.8rem;
-  border-radius: 6px;
+  padding: 2rem 1.6rem;
+  border-radius: 8px;
   box-shadow: 0 6px 20px rgba(50, 45, 40, 0.09);
   cursor: pointer;
-  width: 320px;
-  max-width: 90vw;
+  width: 100%;
+  max-width: 380px;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
@@ -137,10 +214,11 @@ h1, h2, h3, .serif {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 240px;
 }
 
 .chapter-card:hover {
-  transform: translateY(-8px) rotate(1deg);
+  transform: translateY(-6px) rotate(0.8deg);
   box-shadow: 0 12px 30px rgba(50, 45, 40, 0.16);
   border-color: var(--color-accent-gold);
 }
@@ -153,23 +231,25 @@ h1, h2, h3, .serif {
 /* Nav Back Button */
 .nav-back-btn {
   position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
+  top: max(1.2rem, env(safe-area-inset-top, 1.2rem));
+  left: max(1.2rem, env(safe-area-inset-left, 1.2rem));
   z-index: 70;
-  background: rgba(253, 251, 247, 0.85);
+  background: rgba(253, 251, 247, 0.9);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--color-text-main);
   border: 1px solid rgba(112, 104, 99, 0.3);
-  padding: 0.5rem 1.2rem;
-  border-radius: 20px;
+  padding: 0.6rem 1.2rem;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 24px;
   font-family: var(--font-serif);
   font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
 
@@ -179,15 +259,25 @@ h1, h2, h3, .serif {
   border-color: var(--color-text-main);
 }
 
+/* Floating Audio Button */
+.audio-control {
+  min-width: 48px;
+  min-height: 48px;
+}
+
 /* Buttons */
 .btn-elegant {
   background: transparent;
   color: var(--color-text-main);
   border: 1px solid var(--color-text-muted);
-  padding: 1rem 3rem;
+  padding: 0.8rem 2.4rem;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-serif);
-  font-size: 1.4rem;
-  letter-spacing: 0.1em;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.4s ease;
@@ -199,7 +289,7 @@ h1, h2, h3, .serif {
   border-color: var(--color-text-main);
 }
 
-.start-btn { font-size: 1.8rem; padding: 1rem 3.5rem; }
+.start-btn { font-size: 1.8rem; padding: 1rem 3.5rem; min-height: 52px; }
 
 @media (min-width: 768px) {
   .start-btn { font-size: 2rem; padding: 1.2rem 4rem; }
@@ -242,15 +332,17 @@ h1, h2, h3, .serif {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-bg-light); /* Warm paper base */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1.8rem;
   z-index: 50;
   transition: opacity 1.5s ease; /* Smooth fade out */
-  padding: 2rem 1rem;
+  padding: 2rem 1.2rem;
   text-align: center;
+  overflow-y: auto;
 }

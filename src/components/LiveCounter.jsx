@@ -31,8 +31,8 @@ export default function LiveCounter() {
 
   return (
     <div className="animate-item live-counter-card" style={{
-      margin: '2rem auto',
-      padding: '2rem 1.5rem',
+      margin: '1.5rem auto',
+      padding: '1.8rem 1.2rem',
       background: '#ffffff',
       borderRadius: '8px',
       boxShadow: '0 4px 20px rgba(50, 45, 40, 0.08)',
@@ -42,48 +42,43 @@ export default function LiveCounter() {
       border: '1px solid rgba(194, 153, 76, 0.25)',
       position: 'relative'
     }}>
-      <div className="tape" style={{ top: '-12px', left: '50%', transform: 'translateX(-50%) rotate(1deg)' }}></div>
+      <div className="tape" style={{ top: '-11px', left: '50%', transform: 'translateX(-50%) rotate(1deg)' }}></div>
       <p className="handwritten" style={{
-        fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+        fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)',
         color: 'var(--color-accent-gold)',
-        marginBottom: '1.2rem',
+        marginBottom: '1rem',
         letterSpacing: '0.04em'
       }}>
         Nuestra historia comenzó hace…
       </p>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '0.8rem',
-        marginTop: '0.5rem'
-      }}>
-        <div style={{ padding: '0.6rem 0.2rem', background: 'var(--color-bg-light)', borderRadius: '6px' }}>
-          <span className="serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 600, color: 'var(--color-text-main)', display: 'block', lineHeight: 1.1 }}>
+      <div className="live-counter-grid">
+        <div className="counter-unit">
+          <span className="serif counter-number">
             {elapsed.days}
           </span>
-          <span className="handwritten" style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>días</span>
+          <span className="handwritten counter-label">días</span>
         </div>
 
-        <div style={{ padding: '0.6rem 0.2rem', background: 'var(--color-bg-light)', borderRadius: '6px' }}>
-          <span className="serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 600, color: 'var(--color-text-main)', display: 'block', lineHeight: 1.1 }}>
+        <div className="counter-unit">
+          <span className="serif counter-number">
             {String(elapsed.hours).padStart(2, '0')}
           </span>
-          <span className="handwritten" style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>horas</span>
+          <span className="handwritten counter-label">horas</span>
         </div>
 
-        <div style={{ padding: '0.6rem 0.2rem', background: 'var(--color-bg-light)', borderRadius: '6px' }}>
-          <span className="serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 600, color: 'var(--color-text-main)', display: 'block', lineHeight: 1.1 }}>
+        <div className="counter-unit">
+          <span className="serif counter-number">
             {String(elapsed.minutes).padStart(2, '0')}
           </span>
-          <span className="handwritten" style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>minutos</span>
+          <span className="handwritten counter-label">minutos</span>
         </div>
 
-        <div style={{ padding: '0.6rem 0.2rem', background: 'var(--color-bg-light)', borderRadius: '6px' }}>
-          <span className="serif" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 600, color: 'var(--color-accent-pink)', display: 'block', lineHeight: 1.1 }}>
+        <div className="counter-unit">
+          <span className="serif counter-number counter-seconds">
             {String(elapsed.seconds).padStart(2, '0')}
           </span>
-          <span className="handwritten" style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>segundos</span>
+          <span className="handwritten counter-label">segundos</span>
         </div>
       </div>
     </div>
